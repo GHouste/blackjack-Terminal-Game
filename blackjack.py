@@ -16,6 +16,7 @@ player_hand = []
 player_points = 0
 balance = 100
 
+#test
 def betting():
     while bet_placed == False:
         user_input = input("how much money you want to bet: ")
