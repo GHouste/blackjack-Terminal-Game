@@ -2,11 +2,13 @@ import random
 
 
 # game variables
+deck = [2,3,4,5,6,7,8,9,10,"jack","queen","king","ace"]
 turn = 1
-played_cards = [2,2,2]
+played_cards = []
 decks = 0
 betting_box = 0
 bet_placed = False
+
 # dealer variables
 dealer_hand = []
 dealer_points = 0
@@ -16,7 +18,11 @@ player_hand = []
 player_points = 0
 balance = 100
 
-#test on main pc
+def draw():
+    pass
+
+
+
 def betting():
     while bet_placed == False:
         user_input = input("how much money you want to bet: ")
@@ -40,7 +46,6 @@ def main():
     print("-------Black Jack-------\n")
     print(f"Balance: {balance}")
     betting()
-    print("czy to działa?")
     print(f"Balance: {balance}")
 main()
 
