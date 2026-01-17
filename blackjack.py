@@ -16,7 +16,7 @@ player_hand = []
 player_points = 0
 balance = 100
 
-#test
+#test on main pc
 def betting():
     while bet_placed == False:
         user_input = input("how much money you want to bet: ")
@@ -40,6 +40,7 @@ def main():
     print("-------Black Jack-------\n")
     print(f"Balance: {balance}")
     betting()
+    print("czy to działa?")
     print(f"Balance: {balance}")
 main()
 
