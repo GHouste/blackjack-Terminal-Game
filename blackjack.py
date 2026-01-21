@@ -15,11 +15,23 @@ dealer_points = 0
 
 # player variables
 player_hand = []
-player_points = 0
 balance = 100
 
-def draw():
-    pass
+def draw(points):
+    played_card = random.choice(deck)
+    print(played_card)
+    if played_cards.count(played_card) >= 4*decks:
+        pass
+    else:
+        if played_card == "ace":
+            pass
+        elif played_card == "jack" or played_card == "king" or played_card == "queen":
+            points = points + 10
+            return points
+        else:
+            points + int(played_card)
+            return points 
+
 
 
 
@@ -43,10 +55,14 @@ def game_cycle():
     pass
 
 def main():
+
+    player_points = 0
+
     print("-------Black Jack-------\n")
     print(f"Balance: {balance}")
-    betting()
-    print(f"Balance: {balance}")
+    print(player_points)
+    draw(player_points)
+    print(player_points)
 main()
 
 
