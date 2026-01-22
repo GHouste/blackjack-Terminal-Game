@@ -2,11 +2,13 @@ import random
 
 
 # game variables
+global deck 
 deck = [2,3,4,5,6,7,8,9,10,"jack","queen","king","ace"]
 turn = 1
 played_cards = []
 decks = 0
 betting_box = 0
+global bet_placed
 bet_placed = False
 
 # dealer variables
@@ -49,6 +51,7 @@ def betting():
         if bet_money > balance:
             print(f"You dont have enough money")
         else:
+            bet_placed = True
             break
                 
 def game_cycle():
@@ -63,6 +66,8 @@ def main():
     print(player_points)
     draw(player_points)
     print(player_points)
+    betting()
+
 main()
 
 
