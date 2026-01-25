@@ -59,7 +59,7 @@ def main():
     decks_number_choosen = False
     game_on = True
     turn = 1
-
+    player_choosen = False
     """
     print("-------Black Jack-------\n")
     while decks_number_choosen == False:
@@ -70,15 +70,33 @@ def main():
         else:
             decks_number_choosen = True
     """
-    #while game_on ==True:
-    print("-------Black Jack-------\n")
-    print(played_cards)
-    print(player_1.hand)
-    print(player_1.points)
-    player_1.draw_card()
-    print(played_cards)
-    print(player_1.hand)
-    print(player_1.points)
+    while game_on ==True:
+        print("-------Black Jack-------\n")
+        print(f"Your side:")
+        print(f"- Balance: {player_1.balance}")
+        print(f"- Hand: {player_1.hand}")
+        print(f"- Points: {player_1.points}\n")
+        print(f"Dealer`s side:")
+        print(f"- Hand: {dealer.hand}")
+        print(f"- Points: {dealer.points}\n")
+
+        if turn == 2:
+            pass
+        else:
+            print(f"- - - - - - - - - - - - - - -")
+            print(f"(1) Hit")
+            print(f"(2) pass")
+            player_choice = input("your decision: ")
+            match player_choice:
+                case "1":
+                    player_1.draw_card()
+                    dealer.draw_card()
+                    turn = turn + 1
+                case "2":
+                    dealer.draw_card()
+                    turn = turn + 1
+                case _:
+                    print("error try normal option")
     
 main()
 
