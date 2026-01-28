@@ -29,28 +29,75 @@ class player:
                 self.bet = bet_money
     
     def draw_card(self):
-        played_card = random.choice(deck)
-        if played_cards.count(played_card) >= 4*decks:
-            pass
-        else:
-            played_cards.append(played_card)
-            self.hand.append(played_card)
-            if played_card == "ace":
-                if self.points + 11 > 21:
-                    self.points = self.points + 1
-                else:
-                    self.points = self.points + 11
-            elif played_card == "jack" or played_card == "king" or played_card == "queen":
-                self.points = self.points + 10    
+        drawn = False
+        while drawn == False:
+            played_card = random.choice(deck)
+            if played_cards.count(played_card) >= 4*decks:
+                pass
             else:
-                self.points = self.points+ int(played_card)
+                played_cards.append(played_card)
+                self.hand.append(played_card)
+                if played_card == "ace":
+                    if self.points + 11 > 21:
+                        self.points = self.points + 1
+                        drawn = True
+                    else:
+                        self.points = self.points + 11
+                        drawn = True
+                elif played_card == "jack" or played_card == "king" or played_card == "queen":
+                    self.points = self.points + 10    
+                    drawn = True
+                else:
+                    self.points = self.points+ int(played_card)
+                    drawn = True
+
     def add_money(self, money):
         self.balance = self.balance + money
     
-def game_cycle():
-    pass
-def main():
+def game_cycle(player, ai):
 
+    game_on = True
+    turn = 1
+    player_choosen = False
+    player_doubledown = False
+    player_insured = False
+        
+    print("-------Black Jack-------\n")
+    print(f"Your side:")
+    print(f"- Balance: {player.balance}")
+    print(f"- Hand: {player.hand}")
+    print(f"- Points: {player.points}\n")
+    print(f"Dealer`s side:")
+    print(f"- Hand: {ai.hand}")
+    print(f"- Points: {ai.points}\n")
+
+    if turn == 2:
+        pass
+    else:
+            print(f"- - - - - - - - - - - - - - -")
+            print(f"(1) Hit")
+            print(f"(2) pass")
+            player_choice = input("your decision: ")
+            
+            match player_choice:
+                case "1":
+                    player.draw_card()
+                    ai.draw_card()
+                    turn = turn + 1
+                        
+                case "2":
+                    ai.draw_card()
+                    turn = turn + 1
+                            
+                case _:
+                    print("error try normal option")
+                            
+    if player.points >= 21:
+        print(f"you lost {player.bet} ")
+    elif ai.points >=21:
+        pass
+    
+def main():
     player_1 = player(100, 0)
     dealer = player(0, 0)
     global played_cards 
@@ -59,10 +106,7 @@ def main():
     decks = 1
     decks_number_choosen = False
     game_on = True
-    turn = 1
-    player_choosen = False
-
-    print(player_1.balance)
+    
     """
     print("-------Black Jack-------\n")
     while decks_number_choosen == False:
@@ -73,46 +117,8 @@ def main():
         else:
             decks_number_choosen = True
     """
-    
-    while player_1.points < 21 or dealer.points < 21:
-        
-        print("-------Black Jack-------\n")
-        print(f"Your side:")
-        print(f"- Balance: {player_1.balance}")
-        print(f"- Hand: {player_1.hand}")
-        print(f"- Points: {player_1.points}\n")
-        print(f"Dealer`s side:")
-        print(f"- Hand: {dealer.hand}")
-        print(f"- Points: {dealer.points}\n")
-
-        if turn == 2:
-            pass
-        else:
-                print(f"- - - - - - - - - - - - - - -")
-                print(f"(1) Hit")
-                print(f"(2) pass")
-                player_choice = input("your decision: ")
-                player_choosen = True
-                if player_choosen == True:
-                    match player_choice:
-                        case "1":
-                            player_1.draw_card()
-                            dealer.draw_card()
-                            turn = turn + 1
-                            player_choosen = False
-
-                        case "2":
-                            dealer.draw_card()
-                            turn = turn + 1
-                            player_choosen = False
-
-                        case _:
-                            print("error try normal option")
-                            player_choosen = False
-    if player_1.points >= 21:
-        print(f"you lost {player_1.bet} ")
-    elif dealer.points >=21:
-        pass
+    while game_on == True:
+        game_cycle(player_1, dealer)
     
     
 main()
@@ -120,7 +126,11 @@ main()
 
 """
 to do list:
-    error kiedy nie int
-    ekonomia
+    główna pętla gry
+    pozostałe formy obstawiania
+    dodaj podwojenie zakładu
+    dodaj ubezpieczenie
+    zrób coś jak już się karta wylosowała odpowiednio
+    
 
 """
