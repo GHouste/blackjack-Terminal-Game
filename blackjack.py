@@ -9,7 +9,7 @@ class player:
         self.hand = []
         self.bet = 0
 
-    def betting(self, balance):
+    def betting(self):
         bet_placed = False
         while bet_placed == False:
             user_input = input("how much money you want to bet: ")
@@ -44,10 +44,11 @@ class player:
                 self.points = self.points + 10    
             else:
                 self.points = self.points+ int(played_card)
-
+    def add_money(self, money):
+        self.balance = self.balance + money
+    
 def game_cycle():
     pass
-
 def main():
 
     player_1 = player(100, 0)
@@ -60,6 +61,8 @@ def main():
     game_on = True
     turn = 1
     player_choosen = False
+
+    print(player_1.balance)
     """
     print("-------Black Jack-------\n")
     while decks_number_choosen == False:
@@ -70,7 +73,9 @@ def main():
         else:
             decks_number_choosen = True
     """
-    while game_on ==True:
+    
+    while player_1.points < 21 or dealer.points < 21:
+        
         print("-------Black Jack-------\n")
         print(f"Your side:")
         print(f"- Balance: {player_1.balance}")
@@ -83,20 +88,32 @@ def main():
         if turn == 2:
             pass
         else:
-            print(f"- - - - - - - - - - - - - - -")
-            print(f"(1) Hit")
-            print(f"(2) pass")
-            player_choice = input("your decision: ")
-            match player_choice:
-                case "1":
-                    player_1.draw_card()
-                    dealer.draw_card()
-                    turn = turn + 1
-                case "2":
-                    dealer.draw_card()
-                    turn = turn + 1
-                case _:
-                    print("error try normal option")
+                print(f"- - - - - - - - - - - - - - -")
+                print(f"(1) Hit")
+                print(f"(2) pass")
+                player_choice = input("your decision: ")
+                player_choosen = True
+                if player_choosen == True:
+                    match player_choice:
+                        case "1":
+                            player_1.draw_card()
+                            dealer.draw_card()
+                            turn = turn + 1
+                            player_choosen = False
+
+                        case "2":
+                            dealer.draw_card()
+                            turn = turn + 1
+                            player_choosen = False
+
+                        case _:
+                            print("error try normal option")
+                            player_choosen = False
+    if player_1.points >= 21:
+        print(f"you lost {player_1.bet} ")
+    elif dealer.points >=21:
+        pass
+    
     
 main()
 
