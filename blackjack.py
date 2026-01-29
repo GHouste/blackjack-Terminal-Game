@@ -15,7 +15,8 @@ class player:
         while bet_placed == False:
             user_input = input("how much money you want to bet: ")
             bet_money = int(user_input)
-            print(f"money betted: {bet_money}")
+            print(f"you betted: {bet_money}$")
+
             if bet_money > self.balance:
                 print(f"You dont have enough money")
 
@@ -28,21 +29,27 @@ class player:
         drawn = False
         while drawn == False:
             played_card = random.choice(deck)
+
             if played_cards.count(played_card) >= 4*decks:
                 pass
+
             else:
                 played_cards.append(played_card)
                 self.hand.append(played_card)
+
                 if played_card == "ace":
                     if self.points + 11 > 21:
                         self.points = self.points + 1
                         drawn = True
+
                     else:
                         self.points = self.points + 11
                         drawn = True
+
                 elif played_card == "jack" or played_card == "king" or played_card == "queen":
                     self.points = self.points + 10    
                     drawn = True
+
                 else:
                     self.points = self.points+ int(played_card)
                     drawn = True
@@ -52,15 +59,13 @@ class player:
     
 def game_cycle(player, ai):
 
-    game_on = True
-    player_choosen = False
     player_doubledown = False
     player_insured = False
     
     if player.points < 21 or ai.points < 21 or player_doubledown != True and len(player.hand) != 3:
         print("-------Black Jack-------\n")
         print(f"Your side:")
-        print(f"- Balance: {player.balance}")
+        print(f"- Balance: {player.balance}$")
         print(f"- Betted: {player.bet}")
         print(f"- Hand: {player.hand}")
         print(f"- Points: {player.points}\n")
@@ -82,6 +87,7 @@ def game_cycle(player, ai):
                             
                 case "2":
                     ai.draw_card()
+
                 case "3":
                     player_insured = True
                                 
@@ -102,6 +108,7 @@ def game_cycle(player, ai):
                             
                 case "2":
                     ai.draw_card()
+                    
                 case "3":
                     player_doubledown = True
                     player.draw_card()
@@ -129,6 +136,14 @@ def game_cycle(player, ai):
     
     if player_doubledown ==True and len(player.hand) == 3:
         if player.points < 21 and player.points > ai.points:
+            print("-------Black Jack-------\n")
+            print(f"Your side:")
+            print(f"- Hand: {player.hand}")
+            print(f"- Points: {player.points}\n")
+            print(f"Dealer`s side:")
+            print(f"- Hand: {ai.hand}")
+            print(f"- Points: {ai.points}\n")
+            print(f"you won {4 * player.bet}$")
             player.betted = False
             player.points = 0
             ai.points = 0
@@ -136,9 +151,16 @@ def game_cycle(player, ai):
             ai.hand.clear()
             played_cards.clear()
             player.add_money(4 * player.bet)
-            print(f"you won {4 * player.bet}$")
+
         else:
-            print(f"you lost {2 * player.bet} ")
+            print("-------Black Jack-------\n")
+            print(f"Your side:")
+            print(f"- Hand: {player.hand}")
+            print(f"- Points: {player.points}\n")
+            print(f"Dealer`s side:")
+            print(f"- Hand: {ai.hand}")
+            print(f"- Points: {ai.points}\n")
+            print(f"you lost {2 * player.bet}$")
             player.betted = False
             player.points = 0
             ai.points = 0
@@ -147,6 +169,13 @@ def game_cycle(player, ai):
             played_cards.clear()                                
 
     if player.points >= 21 and player_insured == False:
+        print("-------Black Jack-------\n")
+        print(f"Your side:")
+        print(f"- Hand: {player.hand}")
+        print(f"- Points: {player.points}\n")
+        print(f"Dealer`s side:")
+        print(f"- Hand: {ai.hand}")
+        print(f"- Points: {ai.points}\n")
         print(f"you lost {player.bet}$")
         player.betted = False
         player.points = 0
@@ -156,6 +185,13 @@ def game_cycle(player, ai):
         played_cards.clear()
 
     if player.points >= 21 and player_insured == True:
+        print("-------Black Jack-------\n")
+        print(f"Your side:")
+        print(f"- Hand: {player.hand}")
+        print(f"- Points: {player.points}\n")
+        print(f"Dealer`s side:")
+        print(f"- Hand: {ai.hand}")
+        print(f"- Points: {ai.points}\n")
         print(f"you insurred and lost 0$")
         player.betted = False
         player.points = 0
@@ -167,6 +203,14 @@ def game_cycle(player, ai):
 
 
     elif ai.points >=21:
+        print("-------Black Jack-------\n")
+        print(f"Your side:")
+        print(f"- Hand: {player.hand}")
+        print(f"- Points: {player.points}\n")
+        print(f"Dealer`s side:")
+        print(f"- Hand: {ai.hand}")
+        print(f"- Points: {ai.points}\n")
+        print(f"you won {2 * player.bet}$")
         player.betted = False
         player.points = 0
         ai.points = 0
@@ -174,7 +218,7 @@ def game_cycle(player, ai):
         ai.hand.clear()
         played_cards.clear()
         player.add_money(2 * player.bet)
-        print(f"you won {2 * player.bet}$")
+        
     
 def main():
     player_1 = player(100, 0)
@@ -200,6 +244,8 @@ def main():
    
     while game_on == True:
         if player_1.betted == False:
+            print("-------Black Jack-------\n")
+            print(f"your balance {player_1.balance}$")
             player_1.betting()
             player_1.betted = True
         elif player_1.balance == 0:
