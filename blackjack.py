@@ -15,12 +15,12 @@ class player:
         while bet_placed == False:
             user_input = input("how much money you want to bet: ")
             bet_money = int(user_input)
-            print(f"you betted: {bet_money}$")
 
             if bet_money > self.balance:
                 print(f"You dont have enough money")
 
             else:
+                print(f"you betted: {bet_money}$")
                 bet_placed = True
                 self.balance = self.balance - bet_money
                 self.bet = bet_money
