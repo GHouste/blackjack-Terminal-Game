@@ -8,6 +8,7 @@ class player:
         self.points = points
         self.hand = []
         self.bet = 0
+        self.betted = False
 
     def betting(self):
         bet_placed = False
@@ -57,55 +58,60 @@ class player:
 def game_cycle(player, ai):
 
     game_on = True
-    turn = 1
     player_choosen = False
     player_doubledown = False
     player_insured = False
-        
-    print("-------Black Jack-------\n")
-    print(f"Your side:")
-    print(f"- Balance: {player.balance}")
-    print(f"- Hand: {player.hand}")
-    print(f"- Points: {player.points}\n")
-    print(f"Dealer`s side:")
-    print(f"- Hand: {ai.hand}")
-    print(f"- Points: {ai.points}\n")
+    
+    if player.points < 21 or ai.points < 21:
+        print(turn)
+        print("-------Black Jack-------\n")
+        print(f"Your side:")
+        print(f"- Balance: {player.balance}")
+        print(f"- Hand: {player.hand}")
+        print(f"- Points: {player.points}\n")
+        print(f"Dealer`s side:")
+        print(f"- Hand: {ai.hand}")
+        print(f"- Points: {ai.points}\n")
 
-    if turn == 2:
-        pass
-    else:
-            print(f"- - - - - - - - - - - - - - -")
-            print(f"(1) Hit")
-            print(f"(2) pass")
-            player_choice = input("your decision: ")
-            
-            match player_choice:
-                case "1":
-                    player.draw_card()
-                    ai.draw_card()
-                    turn = turn + 1
-                        
-                case "2":
-                    ai.draw_card()
-                    turn = turn + 1
+        if turn == 2:
+            print(turn)
+        else:
+                print(f"- - - - - - - - - - - - - - -")
+                print(f"(1) Hit")
+                print(f"(2) pass")
+                player_choice = input("your decision: ")
+                
+                match player_choice:
+                    case "1":
+                        player.draw_card()
+                        ai.draw_card()
                             
-                case _:
-                    print("error try normal option")
-                            
+                    case "2":
+                        ai.draw_card()
+                                
+                    case _:
+                        print("error try normal option")
+                                
     if player.points >= 21:
         print(f"you lost {player.bet} ")
+        player.betted = False
+        player.points = 0
     elif ai.points >=21:
         pass
     
 def main():
-    player_1 = player(100, 0)
+    player_1 = player(100, 20)
     dealer = player(0, 0)
     global played_cards 
     played_cards = []
     global decks 
     decks = 1
+    global turn
+    turn = 1
     decks_number_choosen = False
     game_on = True
+    global betted
+    betted = False
     
     """
     print("-------Black Jack-------\n")
@@ -118,8 +124,12 @@ def main():
             decks_number_choosen = True
     """
     while game_on == True:
-        game_cycle(player_1, dealer)
-    
+        if player_1.betted == False:
+            player_1.betting()
+            player_1.betted = True
+        else:    
+            game_cycle(player_1, dealer)
+            turn = turn + 1
     
 main()
 
