@@ -248,7 +248,7 @@ def main():
             print(f"your balance {player_1.balance}$")
             player_1.betting()
             player_1.betted = True
-        elif player_1.balance == 0:
+        elif player_1.balance == 0 and player_1.bet == 0:
             game_on = False
             print("You lost everything")
         else:    
